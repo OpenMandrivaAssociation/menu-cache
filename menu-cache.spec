@@ -75,7 +75,7 @@ This package contains development files for %{name}.
 %else
 %setup -q
 %endif
-%apply_patches
+%autopatch -p1
 
 [ -e autogen.sh ] && ./autogen.sh
 
