@@ -8,11 +8,12 @@ Source0:	%{name}-%{git}.tar.xz
 Release:	0.%git.1
 %else
 Source0:	https://github.com/lxde/menu-cache/archive/%{version}.tar.gz
-Release:	3
+Release:	4
 %endif
 License:	GPLv2+
 Group:		Graphical desktop/Other
 Url:		https://github.com/lxde/menu-cache
+Patch0:		https://src.fedoraproject.org/rpms/menu-cache/raw/master/f/menu-cache-1.1.0-0001-Support-gcc10-compilation.patch
 BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	gtk-doc
@@ -81,7 +82,7 @@ This package contains development files for %{name}.
 
 %build
 %configure --without-gtk
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
