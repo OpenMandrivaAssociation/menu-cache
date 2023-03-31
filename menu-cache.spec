@@ -8,7 +8,7 @@ Source0:	%{name}-%{git}.tar.xz
 Release:	0.%git.1
 %else
 Source0:	https://github.com/lxde/menu-cache/archive/%{version}.tar.gz
-Release:	4
+Release:	5
 %endif
 License:	GPLv2+
 Group:		Graphical desktop/Other
