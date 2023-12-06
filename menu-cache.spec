@@ -1,19 +1,25 @@
-%define git 0
+%define major 3
+%define libname %mklibname %{name}
+%define devname %mklibname -d %{name}
+%define oldlibname %mklibname %{name} 3
+
+# git snapshot
+%global snapshot 1
+%if 0%{?snapshot}
+	%global commit		4a82095ca4a334ceaf306c128248eb020f11bef1
+	%global commitdate	20230724
+	%global shortcommit	%(c=%{commit}; echo ${c:0:7})
+%endif
 
 Summary:	A library to speed up freedesktop.org application menus
 Name:		menu-cache
 Version:	1.1.0
-%if %git
-Source0:	%{name}-%{git}.tar.xz
-Release:	0.%git.1
-%else
-Source0:	https://github.com/lxde/menu-cache/archive/%{version}.tar.gz
-Release:	5
-%endif
+#Source0:	https://github.com/lxde/menu-cache/archive/%{version}.tar.gz
+Source0:	https://github.com/lxde/%{name}/archive/%{?snapshot:%{commit}}%{!?snapshot:%{version}}/%{name}-%{?snapshot:%{commit}}%{!?snapshot:%{version}}.tar.gz
+Release:	6
 License:	GPLv2+
 Group:		Graphical desktop/Other
 Url:		https://github.com/lxde/menu-cache
-Patch0:		https://src.fedoraproject.org/rpms/menu-cache/raw/master/f/menu-cache-1.1.0-0001-Support-gcc10-compilation.patch
 BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	gtk-doc
@@ -37,13 +43,11 @@ Advantages:
 
 #----------------------------------------------------------------------
 
-%define major 3
-%define libname %mklibname %{name} %{major}
-
 %package -n %{libname}
 Summary:	Shared library for %{name}
 Group:		Graphical desktop/Other
 Requires:	%{name} >= %{version}-%{release}
+Obsoletes:	%oldlibname < %{EVRD}
 
 %description -n %{libname}
 This package contains shared library for %{name}.
@@ -52,8 +56,6 @@ This package contains shared library for %{name}.
 %{_libdir}/libmenu-cache.so.%{major}*
 
 #----------------------------------------------------------------------
-
-%define devname %mklibname -d %{name}
 
 %package -n %{devname}
 Summary:	Contains development files for %{name}
@@ -70,19 +72,15 @@ This package contains development files for %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 #----------------------------------------------------------------------
-%prep
-%if %{git}
-%setup -qn %{name}-%{git}
-%else
-%setup -q
-%endif
-%autopatch -p1
 
-[ -e autogen.sh ] && ./autogen.sh
+%prep
+%autosetup -p1 -n %{name}-%{?snapshot:%{commit}}%{!?snapshot:%{version}}
 
 %build
-%configure --without-gtk
+autoreconf -fiv
+%configure
 %make_build
 
 %install
 %make_install
+
