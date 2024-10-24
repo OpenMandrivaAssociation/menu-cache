@@ -6,8 +6,8 @@
 # git snapshot
 %global snapshot 1
 %if 0%{?snapshot}
-	%global commit		4a82095ca4a334ceaf306c128248eb020f11bef1
-	%global commitdate	20230724
+	%global commit		83d90343ba7ed345f8c2f0e9d5b71e2fc88d1d6e
+	%global commitdate	20240821
 	%global shortcommit	%(c=%{commit}; echo ${c:0:7})
 %endif
 
@@ -16,7 +16,7 @@ Name:		menu-cache
 Version:	1.1.0
 #Source0:	https://github.com/lxde/menu-cache/archive/%{version}.tar.gz
 Source0:	https://github.com/lxde/%{name}/archive/%{?snapshot:%{commit}}%{!?snapshot:%{version}}/%{name}-%{?snapshot:%{commit}}%{!?snapshot:%{version}}.tar.gz
-Release:	6
+Release:	7
 License:	GPLv2+
 Group:		Graphical desktop/Other
 Url:		https://github.com/lxde/menu-cache
