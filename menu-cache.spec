@@ -4,7 +4,7 @@
 %define oldlibname %mklibname %{name} 3
 
 # git snapshot
-%global snapshot 0
+#global snapshot 1
 %if 0%{?snapshot}
 	%global commit		83d90343ba7ed345f8c2f0e9d5b71e2fc88d1d6e
 	%global commitdate	20240821
@@ -14,8 +14,8 @@
 Summary:	A library to speed up freedesktop.org application menus
 Name:		menu-cache
 Version:	1.1.1
-#Source0:	https://github.com/lxde/menu-cache/archive/%{version}.tar.gz
-Source0:	https://github.com/lxde/%{name}/archive/%{?snapshot:%{commit}}%{!?snapshot:%{version}}/%{name}-%{?snapshot:%{commit}}%{!?snapshot:%{version}}.tar.gz
+Source0:	https://github.com/lxde/menu-cache/archive/%{version}/%{name}-%{version}.tar.gz
+#Source0:	https://github.com/lxde/%{name}/archive/%{?snapshot:%{commit}}%{!?snapshot:%{version}}/%{name}-%{?snapshot:%{commit}}%{!?snapshot:%{version}}.tar.gz
 Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Other
