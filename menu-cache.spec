@@ -20,6 +20,11 @@ Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Other
 Url:		https://github.com/lxde/menu-cache
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	gtk-doc
